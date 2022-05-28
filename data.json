@@ -1,5 +1,5 @@
-var movieData = {
-  "moviesComing":[
+{
+  "movies-coming":[
     {
         "id": "1",
         "title": "Game Night",
@@ -5211,7 +5211,7 @@ var movieData = {
         "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BMTYyMjAyMTI5NF5BMl5BanBnXkFtZTgwOTAxMTQ3NDM@._V1_SY500_CR0,0,337,500_AL_.jpg"
     }            
 ],
-  "inTheater":[
+  "movies-in-theaters":[
     {
         "id": "1",
         "title": "Black Panther",
@@ -6547,7 +6547,7 @@ var movieData = {
         "posterurl": "https://images-na.ssl-images-amazon.com/images/M/MV5BNGNiNWQ5M2MtNGI0OC00MDA2LWI5NzEtMmZiYjVjMDEyOWYzXkEyXkFqcGdeQXVyMjM4NTM5NDY@._V1_SY500_CR0,0,337,500_AL_.jpg"
     }
 ],
-  "indian": [
+  "top-rated-india": [
     {
         "id": "1",
         "title": "Anand",
@@ -20476,7 +20476,7 @@ var movieData = {
   }
 
 ],
-"topRated":[
+"top-rated-movies":[
   {
     "id": "1",
     "title": "Baazigar",
@@ -35007,83 +35007,4 @@ var movieData = {
 "favourit":[
 
 ]
-};
-
-$(document).ready(() => {
-  var e = document.getElementById("searchText");
-    let searchText = e.value;
-    console.log('searchtext',searchText)
-    getMovies(searchText);
- 
-    $('#searchForm').on('submit', (e) => {
-      let searchText = document.getElementById("searchText");
-      console.log('searchtext',searchText.value)
-      getMovies(searchText.value);
-    });
-});
-
-function getMovies(searchText){
-
-      let movies = movieData[searchText];
-      let output = '';
-      $.each(movies, (index, movie) => {
-        output += `
-          <div class="col-md-3">
-            <div class="well text-center">
-              <img src="${movie.poster}">
-              <h5>${movie.title}</h5>
-              <a onclick="movieSelected('${movie.imdbID}')" class="btn btn-primary" href="#">Movie Details</a>
-            </div>
-          </div>
-        `;
-      });
-
-      $('#movies').html(output);
-}
-
-function movieSelected(id){
-  console.log('id',id)
-  sessionStorage.setItem('movieId', id);
-  window.location = 'movie.html';
-  return false;
-}
-
-function getMovie(){
-  let movieId = sessionStorage.getItem('movieId');
-  var e = document.getElementById("searchText");
-  let searchText = e.value;
-
-      let movie = movieData[searchText].filter((f)=>f.id===movieId);
-
-      let output =`
-        <div class="row">
-          <div class="col-md-4">
-            <img src="${movie.poster}" class="thumbnail">
-          </div>
-          <div class="col-md-8">
-            <h2>${movie.title}</h2>
-            <ul class="list-group">
-              <li class="list-group-item"><strong>Genre:</strong> ${movie.genre}</li>
-              <li class="list-group-item"><strong>Released:</strong> ${movie.Released}</li>
-              <li class="list-group-item"><strong>Rated:</strong> ${movie.Rated}</li>
-              <li class="list-group-item"><strong>IMDB Rating:</strong> ${movie.imdbRating}</li>
-              <li class="list-group-item"><strong>Director:</strong> ${movie.Director}</li>
-              <li class="list-group-item"><strong>Writer:</strong> ${movie.Writer}</li>
-              <li class="list-group-item"><strong>Actors:</strong> ${movie.Actors}</li>
-            </ul>
-          </div>
-        </div>
-        <div class="row">
-          <div class="well">
-            <h3>Plot</h3>
-            ${movie.Plot}
-            <hr>
-            <a href="http://imdb.com/title/${movie.imdbID}" target="_blank" class="btn btn-primary">View IMDB</a>
-            <a href="index.html" class="btn btn-default">Go Back To Search</a>
-          </div>
-        </div>
-      `;
-
-      $('#movie').html(output);
-
 }
